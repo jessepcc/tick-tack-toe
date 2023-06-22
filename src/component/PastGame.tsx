@@ -22,11 +22,19 @@ function PastGame({
 
     const history = _history.map(
         (game: Array<Array<string | null>>, i: number) => (
-            <button key={`game-${i}`} onClick={() => handleViewHistory(game)}>
+            <button
+                id={`past-${10 - i}`}
+                key={`game-${i}`}
+                onClick={() => handleViewHistory(game)}
+            >
                 {10 - i}
             </button>
         )
     );
+
+    if (_history.length === 0) {
+        return <div>No history</div>;
+    }
 
     return (
         <div>

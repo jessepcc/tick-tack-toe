@@ -42,6 +42,7 @@ function Board({
                         value={squares[i]}
                         onSquareClick={() => handleClick(i)}
                         key={`sq-${i}`}
+                        id={`square-${i}`}
                     />
                 ))}
             </div>

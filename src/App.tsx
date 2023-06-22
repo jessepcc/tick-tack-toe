@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Board from "./component/Board";
 import "./App.css";
 import PastGame from "./component/PastGame";
@@ -27,26 +27,29 @@ function App() {
     const currentSquares = game[currentMove];
 
     // random move base on the current game
-    function autoPlay(currentGame: Array<Array<string | null>>) {
-        // find all empty squares
-        const emptySquares = currentGame[currentMove].reduce(
-            (acc, cur, i) => (cur === null ? [...acc, i] : acc),
-            [] as Array<number>
-        );
-        // pick a random empty square
-        const randomSquare =
-            emptySquares[Math.floor(Math.random() * emptySquares.length)];
-        // make a move
-        const nextSquares = currentGame[currentMove].slice();
-        nextSquares[randomSquare] = xIsNext ? "X" : "O";
+    const autoPlay = useCallback(
+        (currentGame: Array<Array<string | null>>) => {
+            // find all empty squares
+            const emptySquares = currentGame[currentMove].reduce(
+                (acc, cur, i) => (cur === null ? [...acc, i] : acc),
+                [] as Array<number>
+            );
+            // pick a random empty square
+            const randomSquare =
+                emptySquares[Math.floor(Math.random() * emptySquares.length)];
+            // make a move
+            const nextSquares = currentGame[currentMove].slice();
+            nextSquares[randomSquare] = xIsNext ? "X" : "O";
 
-        const nextGame = [
-            ...currentGame.slice(0, currentMove + 1),
-            nextSquares,
-        ];
-        setGame(nextGame);
-        setCurrentMove(nextGame.length - 1);
-    }
+            const nextGame = [
+                ...currentGame.slice(0, currentMove + 1),
+                nextSquares,
+            ];
+            setGame(nextGame);
+            setCurrentMove(nextGame.length - 1);
+        },
+        [currentMove, setGame, setCurrentMove, xIsNext]
+    );
 
     function handlePlay(nextSquares: Array<string | null>) {
         const nextGame = [...game.slice(0, currentMove + 1), nextSquares];
@@ -86,7 +89,7 @@ function App() {
             }
             localStorage.setItem("history", JSON.stringify(history));
         }
-    }, [mode, game, currentMove, currentSquares]);
+    }, [mode, game, currentMove, currentSquares, auto, xIsNext, autoPlay]);
 
     if (!currentSquares) {
         return <div>Invalid</div>;
@@ -108,7 +111,9 @@ function App() {
                     isAuto={auto}
                     setAuto={setAuto}
                 />
-                <button onClick={handleReset}>reset</button>
+                <button id="reset" onClick={handleReset}>
+                    reset
+                </button>
             </div>
             <PastGame
                 setGame={setGame}
