@@ -25,6 +25,7 @@ function Board({
 
     const winner = calculateWinner(squares);
     let status;
+
     if (winner) {
         status = "Winner: " + winner;
     } else {
@@ -33,8 +34,7 @@ function Board({
 
     return (
         <>
-            <h1>Tic Tac Toe</h1>
-            <div className="status">{status}</div>
+            <p className="status">{status}</p>
             <div className="square-wrapper">
                 {squares.map((_, i) => (
                     <Square

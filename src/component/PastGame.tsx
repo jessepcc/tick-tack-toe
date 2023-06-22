@@ -23,15 +23,19 @@ function PastGame({
     const history = _history.map(
         (game: Array<Array<string | null>>, i: number) => (
             <button key={`game-${i}`} onClick={() => handleViewHistory(game)}>
-                {i}
+                {10 - i}
             </button>
         )
     );
 
     return (
         <div>
-            <p>Record of last 10 games</p>
-            {history}
+            <p>View last 10 games</p>
+            <div className="history-wrapper">
+                <pre>oldest</pre>
+                {history}
+                <pre>latest</pre>
+            </div>
         </div>
     );
 }
