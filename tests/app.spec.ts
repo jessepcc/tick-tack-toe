@@ -72,6 +72,21 @@ test("game board after a winner", async ({ page }) => {
     await expect(page.getByText("Winner: X")).toBeVisible();
 });
 
+test("game board after a draw", async ({ page }) => {
+    // X wins with the first row
+    await page.locator("#square-1").click();
+    await page.locator("#square-0").click();
+    await page.locator("#square-2").click();
+    await page.locator("#square-4").click();
+    await page.locator("#square-3").click();
+    await page.locator("#square-5").click();
+    await page.locator("#square-7").click();
+    await page.locator("#square-6").click();
+    await page.locator("#square-8").click();
+
+    await expect(page.getByText("Draw")).toBeVisible();
+});
+
 test("auto mode", async ({ page }) => {
     await page.getByText("Toggle").check();
 

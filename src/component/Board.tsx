@@ -29,7 +29,11 @@ function Board({
     if (winner) {
         status = "Winner: " + winner;
     } else {
-        status = "Next player: " + (xIsNext ? "X" : "O");
+        if (squares.every((square) => square !== null)) {
+            status = "Draw";
+        } else {
+            status = "Next player: " + (xIsNext ? "X" : "O");
+        }
     }
 
     return (

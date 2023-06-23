@@ -76,7 +76,8 @@ function App() {
         if (
             mode === "play" &&
             currentSquares &&
-            calculateWinner(currentSquares)
+            (calculateWinner(currentSquares) ||
+                currentSquares.every((square) => square !== null))
         ) {
             const _history = localStorage.getItem("history");
             const history = _history ? JSON.parse(_history) : [];
