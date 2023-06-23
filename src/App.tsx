@@ -6,7 +6,7 @@ import SetAuto from "./component/SetAuto";
 import { calculateWinner } from "./util/calculateWinner";
 
 function App() {
-    const [auto, setAuto] = useState(true);
+    const [auto, setAuto] = useState(false);
     const [mode, setMode] = useState<"play" | "view">("play");
     const [game, setGame] = useState<Array<Array<string | null>>>(() => {
         const currentGame = localStorage.getItem("game");
