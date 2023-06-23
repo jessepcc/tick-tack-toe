@@ -36,6 +36,10 @@
   margin-bottom: 1rem;
 }
 
+.reset-button {
+  margin-bottom: 1rem;
+}
+
 .history-wrapper {
   display: flex;
   align-items: center;

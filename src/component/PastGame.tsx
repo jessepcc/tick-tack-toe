@@ -37,14 +37,14 @@ function PastGame({
     }
 
     return (
-        <div>
+        <>
             <p>View last 10 games</p>
             <div className="history-wrapper">
                 <pre>oldest</pre>
                 {history}
                 <pre>latest</pre>
             </div>
-        </div>
+        </>
     );
 }
 

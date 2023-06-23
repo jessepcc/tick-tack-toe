@@ -92,7 +92,20 @@ function App() {
     }, [mode, game, currentMove, currentSquares, auto, xIsNext, autoPlay]);
 
     if (!currentSquares) {
-        return <div>Invalid</div>;
+        return (
+            <div>
+                <p>Setup Failed</p>
+                <button
+                    onClick={() => {
+                        if (window && window.localStorage) {
+                            window.localStorage.clear();
+                        }
+                    }}
+                >
+                    Reset LocalStorage
+                </button>
+            </div>
+        );
     }
 
     return (
@@ -105,16 +118,16 @@ function App() {
                     onPlay={handlePlay}
                 />
             </div>
-            <div>
-                <SetAuto
-                    started={currentMove !== 0 || mode === "view"}
-                    isAuto={auto}
-                    setAuto={setAuto}
-                />
-                <button id="reset" onClick={handleReset}>
-                    reset
-                </button>
-            </div>
+
+            <SetAuto
+                started={currentMove !== 0 || mode === "view"}
+                isAuto={auto}
+                setAuto={setAuto}
+            />
+            <button id="reset" onClick={handleReset} className="reset-button">
+                reset
+            </button>
+
             <PastGame
                 setGame={setGame}
                 setCurrentMove={setCurrentMove}
